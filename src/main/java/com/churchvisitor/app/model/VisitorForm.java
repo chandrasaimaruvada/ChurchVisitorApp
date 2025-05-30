@@ -7,7 +7,10 @@ public class VisitorForm {
     private String knowUs;
     private String birthday;
     private String prayerPoints;
-    private String submissionDate; // for internal use
+    private String submissionDate;
+    private String anniversary;
+    private String visitPreference;
+    private String feedback;
 
     public String getBirthday() {
         return birthday;
@@ -64,4 +67,29 @@ public class VisitorForm {
     public void setSubmissionDate(String submissionDate) {
         this.submissionDate = submissionDate;
     }
+
+    public String getAnniversary() {
+        return anniversary;
+    }
+
+    public void setAnniversary(String anniversary) {
+        this.anniversary = anniversary;
+    }
+
+    public String getVisitPreference() {
+        return visitPreference;
+    }
+
+    public void setVisitPreference(String visitPreference) {
+        this.visitPreference = visitPreference;
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+
 }
