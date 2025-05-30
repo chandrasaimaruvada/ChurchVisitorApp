@@ -35,4 +35,8 @@ build/
 # ignore Google API credentials file
 src/main/resources/credentials.json
 credentials.json
+.git
+.gitignore
+Dockerfile
+README.md
 
