@@ -1,0 +1,6 @@
+src/main/resources/credentials.json
+credentials.json
+target
+.git
+*.iml
+.idea
