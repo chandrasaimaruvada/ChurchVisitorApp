@@ -117,6 +117,13 @@
             background-color: #f1f1f1;
         }
 
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+
         @media (max-width: 768px) {
             input[type="text"] {
                 min-width: 100%;
@@ -149,16 +156,20 @@
     </form>
 </div>
 
-<!-- Responsive Table Container -->
-<div class="table-wrapper">
+<!-- Check if there are rows -->
+<div th:if="${rows == null or #lists.isEmpty(rows)}" class="no-data">
+    No data to display.
+</div>
+
+<div th:if="${rows != null and !#lists.isEmpty(rows)}" class="table-wrapper">
     <table>
         <thead>
         <tr>
-            <th th:each="header : ${entries[0]}" th:text="${header}"></th>
+            <th th:each="header : ${headers}" th:text="${header}"></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="row, rowStat : ${entries}" th:if="${rowStat.index} > 0">
+        <tr th:each="row : ${rows}">
             <td th:each="cell : ${row}" th:text="${cell}"></td>
         </tr>
         </tbody>

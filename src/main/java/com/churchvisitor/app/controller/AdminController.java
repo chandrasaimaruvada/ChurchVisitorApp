@@ -49,32 +49,33 @@ public class AdminController {
             @RequestParam(value = "search", required = false) String search,
             Model model) throws IOException {
 
-        // Load data from Google Sheets
         List<List<Object>> sheetData = sheetService.getAllData();
 
         if (sheetData == null || sheetData.size() < 2) {
-            model.addAttribute("entries", List.of());
+            model.addAttribute("headers", List.of());
+            model.addAttribute("rows", List.of());
+            model.addAttribute("search", search);
+            model.addAttribute("message", "No data available.");
             return "admin-dashboard";
         }
 
         List<Object> headers = sheetData.get(0);
-        List<List<Object>> filteredData = sheetData.stream()
+        List<List<Object>> filteredRows = sheetData.stream()
                 .skip(1)
-                .filter(row -> {
-                    boolean searchMatch = search == null || search.isBlank() || row.toString().toLowerCase().contains(search.toLowerCase());
-                    return searchMatch;
-                })
+                .filter(row -> search == null || search.isBlank() || row.toString().toLowerCase().contains(search.toLowerCase()))
                 .collect(Collectors.toList());
 
-        List<List<Object>> displayData = new ArrayList<>();
-        displayData.add(headers); // Add header
-        displayData.addAll(filteredData);
-
-        model.addAttribute("entries", displayData);
+        model.addAttribute("headers", headers);
+        model.addAttribute("rows", filteredRows);
         model.addAttribute("search", search);
+
+        if (filteredRows.isEmpty()) {
+            model.addAttribute("message", "No matching data found.");
+        }
 
         return "admin-dashboard";
     }
+
 
 
     private LocalDate parseDate(String dateStr) {
